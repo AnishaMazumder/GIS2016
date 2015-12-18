@@ -1,19 +1,21 @@
 package edu.asu.anisha.core;
 
 public class Edge {
-	int source;
-	int end;
+	Node source;
+	Node end;
 	double weight;
-	public Edge(int source, int end, double weight) {
+	int edgeID;
+	public Edge(Node source, Node end, double weight, int id) {
 		super();
 		this.source = source;
 		this.end = end;
 		this.weight = weight;
+		this.edgeID = id;
 	}
-	public int getSource() {
+	public Node getSource() {
 		return source;
 	}
-	public int getEnd() {
+	public Node getEnd() {
 		return end;
 	}
 	public double getWeight() {
@@ -23,6 +25,12 @@ public class Edge {
 	@Override
 	public String toString() {
 		return "Edge [source=" + source + ", end=" + end + ", weight=" + weight + "]";
+	}
+	public int getID() {
+		return edgeID;
+	}
+	public Edge reverse() {
+		return new Edge(end,source,weight,Integer.MIN_VALUE);
 	}
 	
 }
