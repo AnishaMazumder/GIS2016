@@ -70,7 +70,8 @@ public class QPSolver {
 			for(int i=0;i<outEdges.size();i++)
 				{
 					//expr5.addTerm(2.0,X_v[i]);
-					exprLHS.addTerm(outEdges.get(i).getWeight(),X_e[outEdges.get(i).getID()]);
+//					exprLHS.addTerm(outEdges.get(i).getWeight(),X_e[outEdges.get(i).getID()]);
+					exprLHS.addTerm(1.0,X_e[outEdges.get(i).getID()]);
 				}
 			for(Node node:nodeSubset){
 

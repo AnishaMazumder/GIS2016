@@ -225,7 +225,7 @@ public class Graph {
 	}
 	@Override
 	public String toString() {
-		return "Graph [nodeCount=" + nodeCount + ",\n nodes=" + nodes + ",\n edges=" + edges + ",\n adjacencyList="
+		return "Graph [nodeCount=" + nodeCount + "\t edgeCount = " + getEdgeCount() +",\n nodes=" + nodes + ",\n edges=" + edges + ",\n adjacencyList="
 				+ adjacencyList + ",\n directed=" + directed + "]";
 	}
 

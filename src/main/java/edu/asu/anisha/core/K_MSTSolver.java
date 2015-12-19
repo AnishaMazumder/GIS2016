@@ -16,10 +16,13 @@ public class K_MSTSolver {
 	private int maxIter;
 	private int k;
 	private double epsilon;
-	public K_MSTSolver(Graph g, int k,  int maxIter,double epsilon) {
+	public K_MSTSolver(Graph g, int k,  int maxIter,double epsilon/*,boolean useLP*/) {
 		super();
 		this.g = g;
-		this.qpSolver = new QPSolver(g);
+		//if(useLP)
+			this.qpSolver = new QPSolver(g);
+//		else
+			
 		this.maxIter = maxIter;
 		this.k = k;
 		this.epsilon = epsilon;
@@ -41,7 +44,7 @@ public class K_MSTSolver {
 				/**
 				 * Finding a interval [left_lambda, right_lambda] so that it contains k
 				 */
-				Map<String, ArrayList<Double>> ret = (new QPSolver(g)).solve(lambda,root);
+				Map<String, ArrayList<Double>> ret = this.qpSolver.solve(lambda,root);
 				/**
 				 * Find used_k from ret
 				 */
@@ -95,9 +98,9 @@ public class K_MSTSolver {
 					if(DEBUG && iter == 53)
 						System.out.println("This is iter 53");
 					midLambda = (leftLambda+rightLambda)/2;
-					ret = (new QPSolver(g)).solve(midLambda,root);
-					//				ret = (new QPSolver(g)).solve(1.0,root);
-					currentK = getUsedK(ret.get("Y"));;
+					ret = this.qpSolver.solve(midLambda,root);
+					//				ret = this.qpSolver.solve(1.0,root);
+					currentK = getUsedK(ret.get("Y"));
 					if(DEBUG){
 						System.out.println("leftLambda =" + leftLambda + ",\t rightLambda = "+rightLambda + ",\t iter = "+iter +
 								",\t currentK = " +currentK);
@@ -124,8 +127,14 @@ public class K_MSTSolver {
 				}
 				if(DEBUG)
 					System.out.println("leftLambda =" + leftLambda + ",\t rightLambda = "+rightLambda + ",\t iter = "+iter);
-				if(!success)
-				{
+				
+				if(success){
+					bestRet.put("Nodes",getListOfNodes(ret.get("Y")));
+					bestRet.put("Edges",getListOfEdges(ret.get("X")));
+					bestRet.put("obj", computeObjValueAsList(getListOfEdges(ret.get("X"))));
+				}
+					
+				else{
 
 					//iterpolate
 					double mu1 = ((double)(k2 - k))/(k2 - k1);
@@ -258,7 +267,8 @@ public class K_MSTSolver {
 	private ArrayList<Edge> getListOfEdges(ArrayList<Double> arrayList) {
 		ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
 		for(int i=0;i<arrayList.size();i++){
-			if(arrayList.get(i)==1.0)
+//			if(arrayList.get(i)==1.0)
+			if(arrayList.get(i)>0.0)
 				listOfEdges.add(g.getEdge(i));
 		}
 		return listOfEdges;
