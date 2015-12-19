@@ -24,7 +24,7 @@ public class Edge {
 	
 	@Override
 	public String toString() {
-		return "Edge [source=" + source + ", end=" + end + ", weight=" + weight + "]";
+		return "Edge [source=" + source + ", end=" + end + ", weight=" + weight + ", edgeID=" + edgeID + "]";
 	}
 	public int getID() {
 		return edgeID;

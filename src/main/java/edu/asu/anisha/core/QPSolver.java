@@ -14,6 +14,7 @@ import ilog.cplex.IloCplex.UnknownObjectException;
 
 public class QPSolver {
 
+	private static final boolean DEBUG = true;
 	/******
 	 *  Solves a QP problem
 	 *  Input: lambda
@@ -36,19 +37,21 @@ public class QPSolver {
 	}
 
 	
-	public void optimize(double lambda/*, int k*/) {
+	public void optimize(double lambda, Node root/*, int k*/) {
 		try {		
 			createX_eVariables();
 			createY_vVariables();
 			//cplex.setOut(null);
-			createConstraint();
+			createConstraint(root);
 			createObjective(lambda/*,k*/);
 	          
 			if ( cplex.solve() ) {
-				System.out.println("----------------------------------------");
-	            System.out.println("Obj " + cplex.getObjValue());
-//	            total_successful_runs++;
-	            System.out.println();
+				if(DEBUG){
+					System.out.println("----------------------------------------");
+		            System.out.println("Obj " + cplex.getObjValue());
+	//	            total_successful_runs++;
+		            System.out.println();
+				}
 	            
 			}
 			
@@ -57,8 +60,8 @@ public class QPSolver {
 		}
 	}
 
-	private void createConstraint() {
-		ArrayList<ArrayList<Node>> nodePowerSet = g.nodeSubsets();
+	private void createConstraint(Node root) {
+		ArrayList<ArrayList<Node>> nodePowerSet = g.nodeSubsets(root);
 		
 		try {
 		for(ArrayList<Node> nodeSubset: nodePowerSet){
@@ -71,14 +74,21 @@ public class QPSolver {
 				}
 			for(Node node:nodeSubset){
 
-					IloLinearNumExpr exprRHS=cplex.linearNumExpr(1);
-					exprRHS.addTerm(-1.0, Y_v[node.getID()]);
-					cplex.addGe(exprLHS, exprRHS , ": Contraint for node "+node.getID() );
+//					IloLinearNumExpr exprRHS=cplex.linearNumExpr(1.0);
+//				IloLinearNumExpr exprRHS=cplex.linearNumExpr();
+//				IloLinearNumExpr exprRHS=cplex.linearNumExpr();
+//					exprRHS.addTerm(-1.0, Y_v[node.getID()]);
+//					cplex.diff(1.0,Y_v[node.getID()]);
+//					exprRHS.add((IloLinearNumExpr) cplex.constant(1.0));
+//					if(DEBUG)
+//						System.out.println("exprLHS = " + exprLHS.toString() + "\n exprRHS = "+exprRHS.toString());
+					cplex.addGe(exprLHS, cplex.diff(1.0,Y_v[node.getID()]) , ": Contraint for node "+node.getID() );
+					
 					
 			}
 		}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("createConstraint exception"+e.getMessage());
 		}
 		
 	}
@@ -103,7 +113,7 @@ public class QPSolver {
 			System.out.println(e.getMessage());
 		}
 	}
-	public Map<String,ArrayList<Double>> solve(double lambda/*, int k*/){
+	public Map<String,ArrayList<Double>> solve(double lambda, Node root/*, int k*/){
 		/**
 		 * replace lambda 
 		 * call solver
@@ -111,9 +121,10 @@ public class QPSolver {
 		 * create a map with key "X" and "Y" with the values of "X_e" and "Y_v"
 		 * return
 		 */
+		
 		try {
 			cplex = new IloCplex();
-			optimize(lambda/*,k*/);
+			optimize(lambda, root/*,k*/);
 		} catch (IloException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,6 +160,14 @@ public class QPSolver {
 			}
 		}
 		result.put("Y", values);
+		values = new ArrayList<Double>();
+		try {
+			values.add(cplex.getObjValue());
+		} catch (IloException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		result.put("obj", values);
 		return result;
 	}
 	
