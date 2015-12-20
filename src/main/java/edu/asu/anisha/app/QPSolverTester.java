@@ -25,7 +25,7 @@ public class QPSolverTester {
 		Graph g = new Graph(v,false);
 		System.out.println(g + "\n edgecount = "+g.getEdgeCount());
 		QPSolver s = new QPSolver(g);
-		Map<String, ArrayList<Double>> ret = s.solve(1.0,g.getNode(0));
+		Map<String, ArrayList<Double>> ret = s.solve(4.875,g.getNode(0));
 		System.out.println(ret);
 	}
 }

@@ -104,17 +104,17 @@ public class Graph {
 			neighbors.add(end);
 			adjacencyList.put(source,neighbors);
 		}
-		if(directed){
-			if(adjacencyList.containsKey(end)){
-				HashSet<Node> neighbors = adjacencyList.get(end);
-				neighbors.add(source);
-			}
-			else{
-				HashSet<Node> neighbors = new HashSet<Node>();
-				neighbors.add(source);
-				adjacencyList.put(end,neighbors);
-			}
-		}
+//		if(directed){
+//			if(adjacencyList.containsKey(end)){
+//				HashSet<Node> neighbors = adjacencyList.get(end);
+//				neighbors.add(source);
+//			}
+//			else{
+//				HashSet<Node> neighbors = new HashSet<Node>();
+//				neighbors.add(source);
+//				adjacencyList.put(end,neighbors);
+//			}
+//		}
 	}
 
 	public int getEdgeCount() {
@@ -227,6 +227,23 @@ public class Graph {
 	public String toString() {
 		return "Graph [nodeCount=" + nodeCount + "\t edgeCount = " + getEdgeCount() +",\n nodes=" + nodes + ",\n edges=" + edges + ",\n adjacencyList="
 				+ adjacencyList + ",\n directed=" + directed + "]";
+	}
+
+	public int getSteinerPointsNeeded(double range) {
+		int steinerPointsNeeded = 0;
+		for(Edge edge:this.getEdges()){
+			steinerPointsNeeded+= Math.ceil(edge.getWeight()/(2*range));
+		}
+		return steinerPointsNeeded;
+	}
+	
+	public void removeEdge(Edge edge){
+		Node source = edge.getSource();
+		Node end = edge.getEnd();
+		edges.remove(edge);
+		edgeMap.remove(source.getID()+":"+end.getID());
+		HashSet<Node> neighbors = adjacencyList.get(source);
+		neighbors.remove(end);
 	}
 
 	

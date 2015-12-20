@@ -125,6 +125,9 @@ public class QPSolver {
 		
 		try {
 			cplex = new IloCplex();
+			cplex.setOut(null);
+			cplex.setParam(IloCplex.BooleanParam.MemoryEmphasis,true);
+			cplex.setParam(IloCplex.DoubleParam.WorkMem, 1000);
 			optimize(lambda, root/*,k*/);
 		} catch (IloException e) {
 			// TODO Auto-generated catch block
