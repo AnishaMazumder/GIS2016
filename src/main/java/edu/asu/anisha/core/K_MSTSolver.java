@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class K_MSTSolver {
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	private Graph g;
 	private QPSolver qpSolver;
 	private int maxIter;
@@ -38,7 +38,8 @@ public class K_MSTSolver {
 		for(Node root:g.getNodes()){
 			//			{
 			//		Node root = g.getNode(0); //comment this out and uncomment the for loop
-			System.out.println("Root = "+root.toString());
+			if(DEBUG)
+				System.out.println("Root = "+root.toString());
 			double lambda = 0.0;//g.getMaxEdgeWeight()*stepFraction;
 			double leftLambda, rightLambda;
 
@@ -182,7 +183,8 @@ public class K_MSTSolver {
 					List<Node> eulerTourResult = new LinkedList<Node>();
 					HashMap<String,Boolean> visitedEdges = new HashMap<String,Boolean>();
 					getEulerTour(new ArrayList<Node>(t2),t2EdgeSet,root,eulerTourResult,visitedEdges);
-					System.out.println("Euler Tour::\n Nodes = "+t2.toString()+"\n Edges = "+t2EdgeSet.toString()
+					if(DEBUG)
+						System.out.println("Euler Tour::\n Nodes = "+t2.toString()+"\n Edges = "+t2EdgeSet.toString()
 					+"\n EulerTour = "+eulerTourResult.toString());
 					// Step 2 of Find-Subtree
 					Iterator<Node> it = t2prime.iterator();
@@ -262,7 +264,8 @@ public class K_MSTSolver {
 
 				}
 			}
-			System.out.println("bestRet for root" + root.toString() + bestRet.toString());			
+			if(DEBUG)
+				System.out.println("bestRet for root" + root.toString() + bestRet.toString());			
 		}
 		return new Graph((List<Node>)bestRet.get("Nodes"),(List<Edge>)bestRet.get("Edges"),false);
 

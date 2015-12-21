@@ -14,7 +14,7 @@ import ilog.cplex.IloCplex.UnknownObjectException;
 
 public class QPSolver {
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	/******
 	 *  Solves a QP problem
 	 *  Input: lambda

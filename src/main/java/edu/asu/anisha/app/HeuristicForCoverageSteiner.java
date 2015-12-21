@@ -39,9 +39,17 @@ public class HeuristicForCoverageSteiner {
 				break;	
 		}
 		if(k==1)
-		return k;
+		{
+			if(DEBUG)
+				System.out.println("No graph to print");
+			return k;
+		}
 		else
-			return currGraph.getNodeCount();
+			{
+				if(DEBUG)
+					System.out.println("currGraph ="+currGraph.toString());
+				return currGraph.getNodeCount();
+			}
 	}
 	
 
