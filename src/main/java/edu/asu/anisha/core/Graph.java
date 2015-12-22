@@ -232,7 +232,7 @@ public class Graph {
 	public int getSteinerPointsNeeded(double range) {
 		int steinerPointsNeeded = 0;
 		for(Edge edge:this.getEdges()){
-			steinerPointsNeeded+= Math.ceil(edge.getWeight()/(2*range));
+			steinerPointsNeeded+= Math.ceil(edge.getWeight()/(range))-1;
 		}
 		return steinerPointsNeeded;
 	}
