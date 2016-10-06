@@ -10,3 +10,9 @@ ratio = 1.0size of LCC = 7 under Budget of 9
 ratio = 1.0size of LCC = 7 under Budget of 10
 ratio = 1.0size of LCC = 7 under Budget of 11
 ratio = 1.0size of LCC = 7 under Budget of 12
+ratio = 1.5size of LCC = 8 under Budget of 12
+ratio = 8.0size of LCC = 1 under Budget of 6
+ratio = 1.1428571428571428size of LCC = 7 under Budget of 6
+ratio = 1.1428571428571428size of LCC = 7 under Budget of 6
+ratio = 7.0size of LCC = 1 under Budget of 5
+ratio = 2.3333333333333335size of LCC = 3 under Budget of 7

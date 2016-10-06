@@ -36,14 +36,14 @@ public class kMSTsolver {
 //		v.add(new Node(100,200,4));
 //		v.add(new Node(200,100,5));
 //		
-//		v.add(new Node(-100,-100.2,6));
-//		v.add(new Node(-100,-200,7));
-//		v.add(new Node(-200,-100,8));
+		v.add(new Node(-100,-100.2,0));
+		v.add(new Node(-100,-200,1));
+		v.add(new Node(-200,-100,2));
 //		
 		
-		v.add(new Node(0,0,0));
-		v.add(new Node(0.5,0,1));
-		v.add(new Node(0.25,5,2));
+//		v.add(new Node(0,0,0));
+//		v.add(new Node(0.5,0,1));
+//		v.add(new Node(0.25,5,2));
 		
 		Graph g = new Graph(v,false);
 //		System.out.println(g + "\n edgecount = "+g.getEdgeCount());

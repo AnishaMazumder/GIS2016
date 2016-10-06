@@ -15,16 +15,18 @@ import edu.asu.anisha.core.Node;
 
 public class MaxLCCdriver {
 
-	private static String prefix = "Data\\MaxLCC\\";
+//	private static String prefix = "Data\\MaxLCC\\";
+	private static String prefix = "Data\\RandomData\\";
 	public static int maxIter = 1000;
 	public static double stepFraction = 0.5;
 	public static double epsilon = 0.00001;
 	public static void main(String[] args) throws IOException,FileNotFoundException {
 		//Type 1 data
 		//read core graph
-		BufferedReader br = new BufferedReader(new FileReader(prefix+"Type1CoreGraph.txt"));
+//		BufferedReader br = new BufferedReader(new FileReader(prefix+"Type1CoreGraph.txt"));
 //		BufferedReader br = new BufferedReader(new FileReader(prefix+"Type1CoreGraphBig.txt"));
 //		BufferedReader br = new BufferedReader(new FileReader(prefix+"Type2CoreGraph.txt"));
+		BufferedReader br = new BufferedReader(new FileReader(prefix+"randomData0.txt"));
 		List<Node> v = new LinkedList<Node>();
 		int id = 0;
 		String points;
@@ -38,9 +40,11 @@ public class MaxLCCdriver {
 		PrintWriter pr1;
 		PrintWriter pr2;
 		//read Budget::Range::OPT
-		br = new BufferedReader(new FileReader(prefix+"Type1Data.txt"));
-//		br = new BufferedReader(new FileReader(prefix+"Type1DataTest.txt"));
+//		br = new BufferedReader(new FileReader(prefix+"Type1Data.txt"));
+//		br = new BufferedReader(new FileReader(prefix+"Type1DataTestSmall.txt"));
+//		br = new BufferedReader(new FileReader(prefix+"Type2DataTestSmall.txt"));
 //		br = new BufferedReader(new FileReader(prefix+"Type2Data.txt"));
+		br = new BufferedReader(new FileReader(prefix+"RandomData0Test.txt"));
 		String dataString;
 		while((dataString = br.readLine())!=null){
 			String[] dataArray = dataString.split("::");
@@ -50,14 +54,14 @@ public class MaxLCCdriver {
 			Graph g = new Graph(v,false);
 			HeuristicForCoverageSteiner h2 = new HeuristicForCoverageSteiner(g,steinerPointBudget,maxIter, range, stepFraction, epsilon);
 			int getSizeOfLCC = h2.getLCCwBudget();
-			System.out.println("ratio = "+(double)opt/getSizeOfLCC+"size of LCC = "+getSizeOfLCC+" under Budget of " + steinerPointBudget+"  opt = "+opt);
+			System.out.println("ratio = "+(double)opt/getSizeOfLCC+" size of LCC = "+getSizeOfLCC+" under Budget of " + steinerPointBudget+"  opt = "+opt);
 //			pr1 = new PrintWriter(new BufferedWriter(new FileWriter(prefix+"Type1Output.txt", true)));
 			pr1 = new PrintWriter(new BufferedWriter(new FileWriter(prefix+"Type2Output.txt", true)));
 			pr1.println((double)opt/getSizeOfLCC);
 			pr1.close();
 //			pr2 = new PrintWriter(new BufferedWriter(new FileWriter(prefix+"Type1DetailedOutput.txt", true)));
 			pr2 = new PrintWriter(new BufferedWriter(new FileWriter(prefix+"Type2DetailedOutput.txt", true)));
-			pr2.println("ratio = "+(double)opt/getSizeOfLCC+"size of LCC = "+getSizeOfLCC+" under Budget of " + steinerPointBudget);
+			pr2.println("ratio = "+(double)opt/getSizeOfLCC+" size of LCC = "+getSizeOfLCC+" under Budget of " + steinerPointBudget);
 			pr2.close();
 			
 		}

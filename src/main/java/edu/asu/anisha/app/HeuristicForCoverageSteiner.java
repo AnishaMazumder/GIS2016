@@ -26,6 +26,7 @@ public class HeuristicForCoverageSteiner {
 	
 	public int getLCCwBudget(){
 		int currSteinerPointsNeeded;
+//		int k=1;
 		int k;
 		Graph currGraph = null;
 		for(k=g.getNodeCount();k>=2;k--){
@@ -38,6 +39,26 @@ public class HeuristicForCoverageSteiner {
 			if(currSteinerPointsNeeded <= steinerPointBudget )
 				break;	
 		}
+//		//binary search
+//		int upper = g.getNodeCount();
+//		int lower = 2;
+//		System.out.println("lower = " + lower + "upper = "+ upper);
+//		while(lower<=upper){
+//			int mid = lower + (upper-lower)/2;
+//			System.out.println("Trying k =" + mid);
+//			K_MSTSolver kmstsolver = new K_MSTSolver(g,mid,maxIter,epsilon);
+//			currGraph = kmstsolver.solve(stepFraction);
+//			System.out.println("currGraph = "+currGraph.toString());
+//			currSteinerPointsNeeded = currGraph.getSteinerPointsNeeded(range);
+//			System.out.println("currSteinerPointsNeeded = "+currSteinerPointsNeeded);
+//			if(currSteinerPointsNeeded <= steinerPointBudget ){//success
+//				k = mid;
+//				lower = k+1;
+//			}
+//			else if(currSteinerPointsNeeded > steinerPointBudget)
+//				upper = k-1;
+//			
+//		}
 		if(k==1)
 		{
 			if(DEBUG)

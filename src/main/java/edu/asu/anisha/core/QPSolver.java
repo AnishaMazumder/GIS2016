@@ -2,6 +2,7 @@ package edu.asu.anisha.core;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,12 @@ public class QPSolver {
 	
 	public QPSolver(Graph g) {
 		this.g = g;
+		try {
+			this.cplex = new IloCplex();
+		} catch (IloException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//lambda = 100; // default;
 		/**
 		 * Create a common QP solver instance object for a graph
@@ -94,6 +101,13 @@ public class QPSolver {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return "QPSolver [g=" + g + ", cplex=" + cplex.toString() + ", X_e=" + Arrays.toString(X_e) + ", Y_v="
+				+ Arrays.toString(Y_v) + "]";
+	}
+
+
 	public void createObjective(double lambda/*, int k*/) {
 		try {
 //			IloLinearNumExpr expr = cplex.linearNumExpr(-lambda*(g.getNodeCount()-k));
@@ -124,11 +138,13 @@ public class QPSolver {
 		 */
 		
 		try {
-			cplex = new IloCplex();
+//			cplex = new IloCplex();
 			cplex.setOut(null);
 			cplex.setParam(IloCplex.BooleanParam.MemoryEmphasis,true);
 			cplex.setParam(IloCplex.DoubleParam.WorkMem, 3000);
+			cplex.clearModel();
 			optimize(lambda, root/*,k*/);
+//			System.out.println(this.toString());
 		} catch (IloException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

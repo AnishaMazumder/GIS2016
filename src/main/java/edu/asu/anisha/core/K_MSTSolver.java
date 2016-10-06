@@ -46,6 +46,12 @@ public class K_MSTSolver {
 			/**
 			 * Finding a interval [left_lambda, right_lambda] so that it contains k
 			 */
+			
+//			if(k==7){
+//				qpSolver.toString();
+//				System.exit(0);
+//				System.out.println("k=7");
+//			}
 			Map<String, ArrayList<Double>> ret = this.qpSolver.solve(lambda,root);
 			/**
 			 * Find used_k from ret
@@ -75,7 +81,7 @@ public class K_MSTSolver {
 				//iter++;
 
 			}
-
+			
 			leftLambda = sign>0?lambda:newLambda;
 			rightLambda = sign>0?newLambda:lambda;
 
@@ -100,6 +106,8 @@ public class K_MSTSolver {
 				if(DEBUG && iter == 53)
 					System.out.println("This is iter 53");
 				midLambda = (leftLambda+rightLambda)/2;
+				if(midLambda==leftLambda||midLambda==rightLambda) //difference between left and right lambda is too small
+					break;
 				ret = this.qpSolver.solve(midLambda,root);
 				//				ret = this.qpSolver.solve(1.0,root);
 				currentK = getUsedK(ret.get("Y"));
@@ -153,6 +161,8 @@ public class K_MSTSolver {
 				}
 				else{
 					//mu1 >=0.5
+					System.out.println("Oh no! mu1>=0.5");
+//					System.exit(1);
 					Map<String, ArrayList<Double>> t1ret = this.qpSolver.solve(leftLambda,root);
 					Map<String, ArrayList<Double>> t2ret = this.qpSolver.solve(rightLambda,root);
 					Set<Node> t1 = new HashSet<Node>();
