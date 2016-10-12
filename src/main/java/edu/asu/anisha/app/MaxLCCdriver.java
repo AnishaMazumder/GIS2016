@@ -17,6 +17,7 @@ public class MaxLCCdriver {
 
 //	private static String prefix = "Data\\MaxLCC\\";
 	private static String prefix = "Data\\RandomData\\";
+//	private static String prefix = "";
 	public static int maxIter = 1000;
 	public static double stepFraction = 0.5;
 	public static double epsilon = 0.00001;
@@ -26,7 +27,7 @@ public class MaxLCCdriver {
 //		BufferedReader br = new BufferedReader(new FileReader(prefix+"Type1CoreGraph.txt"));
 //		BufferedReader br = new BufferedReader(new FileReader(prefix+"Type1CoreGraphBig.txt"));
 //		BufferedReader br = new BufferedReader(new FileReader(prefix+"Type2CoreGraph.txt"));
-		BufferedReader br = new BufferedReader(new FileReader(prefix+"randomData0.txt"));
+		BufferedReader br = new BufferedReader(new FileReader(prefix+"randomData2.txt"));
 		List<Node> v = new LinkedList<Node>();
 		int id = 0;
 		String points;
@@ -44,7 +45,7 @@ public class MaxLCCdriver {
 //		br = new BufferedReader(new FileReader(prefix+"Type1DataTestSmall.txt"));
 //		br = new BufferedReader(new FileReader(prefix+"Type2DataTestSmall.txt"));
 //		br = new BufferedReader(new FileReader(prefix+"Type2Data.txt"));
-		br = new BufferedReader(new FileReader(prefix+"RandomData0Test.txt"));
+		br = new BufferedReader(new FileReader(prefix+"RandomData2Test.txt"));
 		String dataString;
 		while((dataString = br.readLine())!=null){
 			String[] dataArray = dataString.split("::");
