@@ -13,6 +13,7 @@ import edu.asu.anisha.core.Node;
 public class kMSTsolver {
 
 	private static double stepFraction = 0.5;
+	private static double range = 0.9;
 	public static void main(String[] args) {
 		List<Node> v = new LinkedList<Node>();
 //		v.add(new Node(100,50,0));
@@ -28,24 +29,25 @@ public class kMSTsolver {
 //		v.add(new Node(60,42,8));
 //		v.add(new Node(81.5,72,9));
 		
-//		v.add(new Node(1,1.2,0));
-//		v.add(new Node(1,2,1));
-//		v.add(new Node(2,1,2));
+		v.add(new Node(1,1,0));
+		v.add(new Node(1,2,1));
+		v.add(new Node(2,1,2));
+		v.add(new Node(2,2,3));
 //		
 //		v.add(new Node(100,100.2,3));
 //		v.add(new Node(100,200,4));
 //		v.add(new Node(200,100,5));
 //		
-		v.add(new Node(-100,-100.2,0));
-		v.add(new Node(-100,-200,1));
-		v.add(new Node(-200,-100,2));
+//		v.add(new Node(-100,-100.2,0));
+//		v.add(new Node(-100,-200,1));
+//		v.add(new Node(-200,-100,2));
 //		
 		
 //		v.add(new Node(0,0,0));
 //		v.add(new Node(0.5,0,1));
 //		v.add(new Node(0.25,5,2));
 		
-		Graph g = new Graph(v,false);
+		Graph g = new Graph(v,range,false);
 //		System.out.println(g + "\n edgecount = "+g.getEdgeCount());
 //		QPSolver s = new QPSolver(g);
 //		Map<String, ArrayList<Double>> ret = s.solve(0.66666666667,g.getNode(0));

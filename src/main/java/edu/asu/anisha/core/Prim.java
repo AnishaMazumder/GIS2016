@@ -28,7 +28,7 @@ public class Prim {
 		Set<Edge> edgesOfMST = primMST.getMinimumSpanningTreeEdgeSet();
 		
 		//List<Edge> castedEdgesOfMST = new ArrayList<Edge>();
-		return new Graph(graph.getNodes(),new ArrayList<Edge>(edgesOfMST),false);
+		return new Graph(graph.getNodes(),new ArrayList<Edge>(edgesOfMST), graph.range, false);
 	}
 
 }

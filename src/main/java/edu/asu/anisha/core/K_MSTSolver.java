@@ -277,7 +277,7 @@ public class K_MSTSolver {
 			if(DEBUG)
 				System.out.println("bestRet for root" + root.toString() + bestRet.toString());			
 		}
-		return new Graph((List<Node>)bestRet.get("Nodes"),(List<Edge>)bestRet.get("Edges"),false);
+		return new Graph((List<Node>)bestRet.get("Nodes"),(List<Edge>)bestRet.get("Edges"),g.range, false);
 
 	}
 
@@ -295,7 +295,7 @@ public class K_MSTSolver {
 	private ArrayList<Edge> getListOfEdges(ArrayList<Node> nodes) {
 		//return the list of edges returned from Prim
 		//return listOfEdges;
-		Graph graph = new Graph(nodes,false);
+		Graph graph = new Graph(nodes,g.range, false);
 		Prim prim = new Prim(graph);
 		return (ArrayList<Edge>) prim.getMST().getEdges();
 	}

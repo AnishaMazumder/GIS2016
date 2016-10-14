@@ -21,26 +21,27 @@ public class Graph {
 	HashMap<Node,HashSet<Node>> adjacencyList;
 	HashMap<String,Edge> edgeMap;
 	boolean directed;
+	static double range;
 
 	
-	private static List<Edge> createEdge(List<Node> vertices){
+	private static List<Edge> createEdge(List<Node> vertices, double range){
 		List<Edge> edges = new LinkedList<Edge>();
 		int id=0;
 		for(int i=0;i<vertices.size();i++){
 			for(int j=i+1;j<vertices.size();j++){
 				double distance = Math.pow(vertices.get(i).getX()-vertices.get(j).getX(),2) + 
 						Math.pow(vertices.get(i).getY()-vertices.get(j).getY(),2);
-				edges.add(new Edge(vertices.get(i),vertices.get(j),Math.sqrt(distance),id++));
+				edges.add(new Edge(vertices.get(i),vertices.get(j),Math.ceil(Math.sqrt(distance)/range)-1,id++));
 			}
 		}
 		return edges;
 	}
 	
-	public Graph(List<Node> vertices,boolean directed) {
-		this(vertices,createEdge(vertices),directed);
+	public Graph(List<Node> vertices, double range, boolean directed) {
+		this(vertices,createEdge(vertices, range), range, directed);
 	}
 
-	public Graph(List<Node> vertices, List<Edge> edges, boolean directed) {
+	public Graph(List<Node> vertices, List<Edge> edges, double range, boolean directed) {
 		super();
 		this.nodes = vertices;
 		this.nodeCount = vertices.size();
@@ -48,6 +49,7 @@ public class Graph {
 		adjacencyList = new HashMap<Node,HashSet<Node>>();
 		this.directed = directed;
 		this.edgeMap = new HashMap<String,Edge>();
+		Graph.range = range;
 		Node source,end;
 		for(Edge edge:edges){
 
@@ -232,7 +234,8 @@ public class Graph {
 	public int getSteinerPointsNeeded(double range) {
 		int steinerPointsNeeded = 0;
 		for(Edge edge:this.getEdges()){
-			steinerPointsNeeded+= Math.ceil(edge.getWeight()/(range))-1;
+//			steinerPointsNeeded+= Math.ceil(edge.getWeight()/(range))-1;
+			steinerPointsNeeded+=edge.getWeight();
 		}
 		return steinerPointsNeeded;
 	}
